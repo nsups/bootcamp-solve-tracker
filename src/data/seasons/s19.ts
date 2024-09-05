@@ -1,5 +1,3 @@
-
-import { createContest } from "../../utils/createContest";
 import { Season, Contest, Participant } from "../../types/Season";
 
 export const participants: Participant  = {
