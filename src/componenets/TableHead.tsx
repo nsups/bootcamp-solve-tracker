@@ -32,5 +32,4 @@ const TableHead = ( { seasonId } : { seasonId: string } ) => {
             </tr>
         </thead>)
 }
-// `https://vjudge.net/contest/${i}`
 export default TableHead;
