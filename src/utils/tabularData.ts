@@ -1,6 +1,4 @@
 import seasons from "../data"
-import { Season }  from "../types/Season";
-
 import ContestParticipant from "../types/Participant";
 
 const userInfoMap = new Map<string, ContestParticipant>();
