@@ -13,15 +13,15 @@ const TableHead = ( { seasonId } : { seasonId: string } ) => {
     return ( <thead>
         <tr >
             <th>Rank</th>
-            <th className="px-5">Participants</th>
-            <th className="px-5">
+            <th className="px-5 min-w-[230px]">Participants</th>
+            <th className="max-w-[150px] min-w-[150px]">
                 <div>Solved</div>
                 <div>{totalProblem} [ {eligibility.target}% ] </div>
             </th>
 
             { 
                 contests.map(([ _, contest ]) => (
-                <th className="w-[110px] max-w-[110px]" key={contest.id}>
+                <th className="w-[110px] max-w-[110px] min-w-[110px]" key={contest.id}>
                     <div 
                         onClick={() => window.open(`https://vjudge.net/contest/${contest.id}`, '_blank')} 
                         className="truncate cursor-pointer hover:underline">{contest.title}</div>
