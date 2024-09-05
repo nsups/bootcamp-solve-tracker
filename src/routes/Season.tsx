@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import ContestParticipant from "../types/Participant";
 import "../styles/style.css"
 const Season = () => {
-    const { seasonId }  = useParams();
+    const seasonId = "s18";
     if(!seasonId || !seasons[seasonId]){
         return <h1>ERROR</h1>
     }
