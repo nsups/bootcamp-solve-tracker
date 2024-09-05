@@ -3,7 +3,7 @@ import Season from "./routes/Season";
 
 const router = createBrowserRouter([
     {
-        path: "bootcamp-solve-tracker/:seasonId",
+        path: "/:seasonId",
         element: <Season />,
     }
 ]);
