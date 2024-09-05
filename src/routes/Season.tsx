@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import seasons from "../data";
 import { getTabularData } from "../utils/tabularData";
 import Table from "../componenets/Table";
