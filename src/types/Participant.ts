@@ -1,11 +1,17 @@
-interface ContestParticipant {
+interface Participant{
     handle: string,
-    userid: number,
     name: string,
     dp: string,
-    contests: { [contestId: number] : Set<number> },
     totalSolved:number,
     totalWeightedSolves:number,
     totalWeightedAvailable: number,
 }
-export default ContestParticipant;
+
+export interface ContestParticipantResponse extends Participant{
+    userid: number,
+    contests: { [contestId: number] : Set<number>},
+}
+
+export interface ParticipantTabularData extends Participant{
+    contests: { [contestId: number] : number},
+}

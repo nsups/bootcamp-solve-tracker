@@ -38,7 +38,8 @@ const contests: Record<number, Contest> = {
 }
 
 const s18: Season  = {
-  season: "s18",
+  seasonId: "s18",
+  seasonTitle: "NSUPS Bootcamp Season 18",
   participants: participants,
   contests: contests,
   eligibility: { active: true, target: 80.0 },

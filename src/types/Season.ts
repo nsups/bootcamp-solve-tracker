@@ -12,7 +12,8 @@ export interface Participant {
 }
 
 export interface Season {
-    season: string, 
+    seasonId: string,
+    seasonTitle: string; 
     participants: Participant,
     contests: Record<number, Contest>,
     eligibility: { active: boolean, target: number }

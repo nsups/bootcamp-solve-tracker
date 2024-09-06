@@ -1,8 +1,12 @@
-import ContestParticipant from "../types/Participant";
 import seasons from "../data/index";
 import { getColor, getColorMatte } from "../utils/colorGenerator";
-const TableBody = ({ data }: { data: { table:ContestParticipant[], seasonId: string } }) => {
-    let { table, seasonId } = data;
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+const TableBody = () => {
+
+    const participants = useSelector((state: RootState) => state.season.participants);
+    const seasonId = useSelector((state: RootState) => state.season.seasonId);
+
     const contests = Object.entries(seasons[seasonId].contests);
 
     let totalProblem = 0;
@@ -21,12 +25,11 @@ const TableBody = ({ data }: { data: { table:ContestParticipant[], seasonId: str
     const getPercentWeightedSolved = (totalWeightedSolves:number) => {
         return Math.round((totalWeightedSolves * 100) / totalWeightedProblem);
     }
-
-
+    
     return (  
     <tbody>
         {
-            table.map( (user, index) => (
+            participants.map( (user, index) => (
                 <tr key={user.handle} className="py-2">
                     <td className="text-center px-5 ">{index + 1}</td>
                         <td className="px-2">
@@ -58,12 +61,12 @@ const TableBody = ({ data }: { data: { table:ContestParticipant[], seasonId: str
                             </td>
                         
                         {contests.map(([ _, { id } ]) => (
-                            <td key={`${id}-${user.userid}`} className="text-center"
+                            <td key={`${id}-${user.handle}`} className="text-center"
                             style={{
-                                backgroundColor: getColorMatte(getPercentOfContest(id, user.contests[id] ? user.contests[id].size : 0))
+                                backgroundColor: getColorMatte(getPercentOfContest(id, user.contests[id] ?? 0))
                             }}
                             >
-                                { user.contests[id] ? user.contests[id].size : '' }
+                                { user.contests[id] ?? '' }
                             </td>
                         ))}
                 </tr>

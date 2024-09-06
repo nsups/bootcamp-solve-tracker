@@ -1,4 +1,10 @@
-const NavBar = ( { seasonId} : { seasonId: string}) => {
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
+import seasons from "../data";
+
+const NavBar = () => {
+    const seasonId = useSelector((state: RootState) => state.season.seasonId);
+
     return (
         <div className="navbar bg-base-100 fixed top-0">
             <div className="flex-none">
@@ -17,7 +23,7 @@ const NavBar = ( { seasonId} : { seasonId: string}) => {
                 </label>
             </div>
             <div className="flex-1">
-            <p className="btn btn-ghost text-xl">NSUPS Bootcamp {seasonId}</p>
+            <p className="p-2 text-xl"> { seasons[seasonId].seasonTitle }</p>
             </div>
       </div>
     )

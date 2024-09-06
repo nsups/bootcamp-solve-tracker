@@ -1,6 +1,11 @@
+import { useSelector } from "react-redux";
 import seasons from "./../data"
-const TableHead = ( { seasonId } : { seasonId: string } ) => {
+import { RootState } from "../store";
+const TableHead = ( ) => {
+    
+    const seasonId = useSelector((state: RootState) => state.season.seasonId);
     const contests = Object.entries(seasons[seasonId].contests);
+    
     const { eligibility } = seasons[seasonId];
 
     let totalProblem = 0;
