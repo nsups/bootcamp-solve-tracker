@@ -17,20 +17,29 @@ const TableHead = ( ) => {
 
     return ( <thead>
         <tr >
-            <th>Rank</th>
+            <th className="px-5">Rank</th>
             <th className="px-5 min-w-[230px]">Participants</th>
-            <th className="max-w-[150px] min-w-[150px]">
+            {eligibility.active&&(
+                <th className="px-2">{eligibility.target}%
+                </th>
+            )}
+            <th className="max-w-52 min-w-52 px-4">
                 <div>Solved</div>
-                <div>{totalProblem} [ {eligibility.target}% ] </div>
+                <div className="w-full flex justify-around">
+                    <span></span>
+                    <span>{totalProblem}</span>
+                    <span>{totalWeightedProblem}</span>
+                </div>
             </th>
+          
 
             { 
                 contests.map(([ _, contest ]) => (
-                <th className="w-[110px] max-w-[110px] min-w-[110px]" key={contest.id}>
+                <th className="w-32 max-w-32 min-w-32" key={contest.id}>
                     <div 
                         onClick={() => window.open(`https://vjudge.net/contest/${contest.id}`, '_blank')} 
-                        className="truncate cursor-pointer hover:underline">{contest.title}</div>
-                    <div> {contest.totalNumberOfProblems } [ {contest.weight * 100}% ] </div>
+                        className="truncate cursor-pointer hover:underline text-primary ">{contest.title}</div>
+                    <div> {contest.totalNumberOfProblems } [ 1 : {contest.weight} ] </div>
                 </th>
                     ))
             }            

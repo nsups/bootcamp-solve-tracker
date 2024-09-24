@@ -1,13 +1,19 @@
 import seasons from "../data/index";
-import { getColor, getColorMatte } from "../utils/colorGenerator";
+import { getDarkmodeColor, getDarkmodeColorMatte } from "../utils/colorGenerator";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import Avater from "./Avater";
+import { FaCheck } from "react-icons/fa";
+import { ReactNode } from "react";
+import { IoCheckbox } from "react-icons/io5";
+import { ImCross } from "react-icons/im";
 const TableBody = () => {
 
     const participants = useSelector((state: RootState) => state.season.participants);
     const seasonId = useSelector((state: RootState) => state.season.seasonId);
-
     const contests = Object.entries(seasons[seasonId].contests);
+    const { eligibility } = seasons[seasonId];
+    const { elimination } = seasons[seasonId];
 
     let totalProblem = 0;
     let totalWeightedProblem = 0;
@@ -25,48 +31,59 @@ const TableBody = () => {
     const getPercentWeightedSolved = (totalWeightedSolves:number) => {
         return Math.round((totalWeightedSolves * 100) / totalWeightedProblem);
     }
+    const getPercentSolved = (totalSolved:number) => {
+        return Math.round((totalSolved * 100) / totalProblem);
+    }
     
+    const getSolveCountCell = (solved: number | undefined, contestId: number):ReactNode => {
+        const indx = contests.findIndex( ( [_, contest] ) => contest.id === contestId);
+        if(indx === -1 || !solved){
+            return <></>
+        }
+        else if(solved === contests[indx][1].totalNumberOfProblems){
+            return <span className="w-full text-center flex justify-center items-center"><FaCheck /></span>
+        }
+        return <>{solved}</>
+    };
+
     return (  
     <tbody>
         {
             participants.map( (user, index) => (
-                <tr key={user.handle} className="py-2">
+                <tr key={user.handle} className="py-2 border-primary-content border hover:skeleton">
                     <td className="text-center px-5 ">{index + 1}</td>
                         <td className="px-2">
                             <div className="flex items-center gap-3">
-                                <div className="avatar">
-                                    <div className="mask mask-squircle h-8 w-8">
-                                        <img
-                                        src={user.dp}
-                                        alt="dp" />
-                                    </div>
-                                </div>
+                                <Avater handle={user.handle}/>
                                 <div>
                                     <div
                                         onClick={() => window.open(`https://vjudge.net/user/${user.handle}`, '_blank')}  
-                                        className="font-bold cursor-pointer hover:underline"
+                                        className={`font-bold cursor-pointer hover:underline ${ elimination.active&&elimination.target > getPercentWeightedSolved(user.totalWeightedSolves) ? "text-error" : "" }`}
                                         >{user.handle}</div>
                                     <div className="text-sm opacity-75">{user.name}</div>
                                 </div>
 
                             </div>
                         </td>
-                   
-                        <td className="text-center"
-                        style={{
-                            backgroundColor: getColor(getPercentWeightedSolved(user.totalWeightedSolves))
-                        }}
-                         >
-                            {user.totalSolved} [ {getPercentWeightedSolved(user.totalWeightedSolves)}% ]
-                            </td>
-                        
+                        {eligibility.active&&(
+                            <th className="px-2 ">
+                                <div className="flex items-center justify-center">{
+                                    getPercentWeightedSolved(user.totalWeightedSolves) >= eligibility.target ? 
+                                    <IoCheckbox className="text-success text-2xl"/> : <ImCross className="text-error text-xl"/>
+                                }</div>
+                            </th>
+                        )}
+                        <td className="text-center text-primary-content font-bold px-4" style={{ backgroundColor: getDarkmodeColor(getPercentWeightedSolved(user.totalWeightedSolves)) }} >
+                            <div className="w-full flex justify-around">
+                                <span>{user.totalSolved}</span>
+                                <span>{getPercentSolved(user.totalSolved)}% </span>
+                                <span>{getPercentWeightedSolved(user.totalWeightedSolves)}% </span>
+                            </div>
+                        </td>
+                         
                         {contests.map(([ _, { id } ]) => (
-                            <td key={`${id}-${user.handle}`} className="text-center"
-                            style={{
-                                backgroundColor: getColorMatte(getPercentOfContest(id, user.contests[id] ?? 0))
-                            }}
-                            >
-                                { user.contests[id] ?? '' }
+                            <td key={`${id}-${user.handle}`} className="border-primary-content border text-center text-primary-content font-bold" style={{ backgroundColor: getDarkmodeColorMatte(getPercentOfContest(id, user.contests[id] ?? 0)) }} >
+                                { (getSolveCountCell(user.contests[id], id))}
                             </td>
                         ))}
                 </tr>

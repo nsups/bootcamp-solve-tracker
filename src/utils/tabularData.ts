@@ -62,7 +62,7 @@ export const getTabularData = async(seasonId: string) => {
         }
         userInfoMap.set(handle, user);
     });
-    await Promise.all(Object.entries(season.contests).map(async( [id, _ ])=>  await generateUserTable(Number(id)) ));
+    await Promise.all(Object.entries(season.contests).map(async( [id, _ ])=>  generateUserTable(Number(id)) ));
     userInfoMap.forEach(user => {
         Object.entries(user.contests).forEach(([ contestID, solved ]) => {
             user.totalSolved += solved.size;

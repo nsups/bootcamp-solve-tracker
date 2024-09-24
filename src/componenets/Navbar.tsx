@@ -23,7 +23,7 @@ const NavBar = () => {
                 </label>
             </div>
             <div className="flex-1">
-            <p className="p-2 text-xl"> { seasons[seasonId].seasonTitle }</p>
+            <p className="p-2 text-xl truncate"> { seasons[seasonId].seasonTitle } Solve Tracker</p>
             </div>
       </div>
     )

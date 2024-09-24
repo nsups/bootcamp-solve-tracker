@@ -1,14 +1,14 @@
-tr{
-    border: 1px dashed rgba(0, 0, 0, 0.3);
-}
-tr:hover{
+ /* tr{
+    border: 1px solid #555;
+} */
+/* tr:hover{
     border: 1px solid black;
     background-color: rgba(50, 50, 50, 0.1);
-}
+}  */
 
 
 td, th{
-    border: 1px dashed rgba(0, 0, 0, 0.3);
+    /* border: 1px dashed rgba(0, 0, 0, 0.3); */
     padding: 0.2rem 0;
     cursor: default;
 }
