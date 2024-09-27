@@ -37,7 +37,7 @@ const TableBody = () => {
     
     const getSolveCountCell = (solved: number | undefined, contestId: number):ReactNode => {
         const indx = contests.findIndex( ( [_, contest] ) => contest.id === contestId);
-        if(indx === -1 || !solved){
+        if(indx === -1 || solved === undefined){
             return <></>
         }
         else if(solved === contests[indx][1].totalNumberOfProblems){
