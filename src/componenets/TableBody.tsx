@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import Avater from "./Avater";
 import { FaCheck } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import { ReactNode } from "react";
 import { IoCheckbox } from "react-icons/io5";
 import { ImCross } from "react-icons/im";
@@ -23,9 +24,10 @@ const TableBody = () => {
         totalWeightedProblem += contest.totalNumberOfProblems * contest.weight;
     });
     
-    const getPercentOfContest = (id:number, totalSolves: number) => {
+    const getPercentOfContest = (id:number, solveDetails: { solved: number; upsolved: number } | undefined) => {
+        if(!solveDetails) return 0;
         const tot = seasons[seasonId].contests[Number(id)].totalNumberOfProblems;
-        return Math.round((totalSolves * 100) / tot);
+        return Math.round((solveDetails.solved * 100) / tot);
     }
 
     const getPercentWeightedSolved = (totalWeightedSolves:number) => {
@@ -35,15 +37,20 @@ const TableBody = () => {
         return Math.round((totalSolved * 100) / totalProblem);
     }
     
-    const getSolveCountCell = (solved: number | undefined, contestId: number):ReactNode => {
+    const getSolveCountCell = (solveDetails: { solved: number; upsolved: number } | undefined, contestId: number):ReactNode => {
         const indx = contests.findIndex( ( [_, contest] ) => contest.id === contestId);
-        if(indx === -1 || solved === undefined){
+        if(indx === -1 || solveDetails === undefined){
             return <></>
         }
-        else if(solved === contests[indx][1].totalNumberOfProblems){
-            return <span className="w-full text-center flex justify-center items-center"><FaCheck /></span>
+        
+        if(solveDetails.solved === contests[indx][1].totalNumberOfProblems && solveDetails.upsolved === 0){
+            return <span className="w-full text-center flex justify-center items-center"><FaCheckCircle /></span>
         }
-        return <>{solved}</>
+        return (
+        <div className="flex gap-2 w-full justify-center items-center">
+            <span>{solveDetails.solved === contests[indx][1].totalNumberOfProblems? <FaCheck /> : <>{solveDetails.solved }</> }</span>
+            {solveDetails.upsolved > 0 && (<span className="text-xs">{ solveDetails.upsolved  }</span>)}
+        </div>)
     };
 
     return (  
@@ -82,7 +89,7 @@ const TableBody = () => {
                         </td>
                          
                         {contests.map(([ _, { id } ]) => (
-                            <td key={`${id}-${user.handle}`} className="border-primary-content border text-center text-primary-content font-bold" style={{ backgroundColor: getDarkmodeColorMatte(getPercentOfContest(id, user.contests[id] ?? 0)) }} >
+                            <td key={`${id}-${user.handle}`} className="border-primary-content border text-center text-primary-content font-bold" style={{ backgroundColor: getDarkmodeColorMatte(getPercentOfContest(id, user.contests[id])) }} >
                                 { (getSolveCountCell(user.contests[id], id))}
                             </td>
                         ))}

@@ -1,6 +1,7 @@
 import seasons from "../data"
 import { ContestParticipantResponse } from "../types/Participant";
 import  { ParticipantTabularData } from "../types/Participant";
+import { parseSubmissions } from "./parsers";
 const userInfoMap = new Map<string, ContestParticipantResponse>();
 const idToHandleMap = new Map<number, string>();
 const handles = new Map<string, string>();
@@ -11,7 +12,6 @@ const generateUserTable =  async (contestId: number) => {
         return;
     }
     const json_response = await response.json();
-    const submissions_info = json_response['submissions'];
     const participants_info = json_response['participants'];
     for (let i in participants_info) {
         const userId = Number(i);
@@ -31,20 +31,31 @@ const generateUserTable =  async (contestId: number) => {
             user.name = name;
         }
         if(!user.contests[contestId]){
-            user.contests[contestId] = new Set<number>();
+            user.contests[contestId] = { solved: new Set<number>(), upsolved: new Set<number>() };
         }
         userInfoMap.set(handle, user);
     }
 
-    for(let i in submissions_info){
-        const [ userId, problemId, verdict ] = submissions_info[i];
-        const handle = idToHandleMap.get(userId) as string;
-        if(handle && verdict === 1){
+    const submissions = parseSubmissions(json_response);
+    Object.entries(submissions).forEach(([ userId, userSubmissions ]) => {
+        const handle = idToHandleMap.get(Number(userId)) as string;
+        if(handle) {
             const user = userInfoMap.get(handle) as ContestParticipantResponse;
-            user.contests[contestId].add(problemId);
-            userInfoMap.set(handle, user);
+            userSubmissions.forEach(( { problemNo, verdict, isUpsolve}) => {
+                if(verdict === 1 && !isUpsolve){
+                    user.contests[contestId].solved.add(problemNo);
+                }
+            });
+            userSubmissions.forEach(( { problemNo, verdict, isUpsolve }) => {
+                if(verdict === 1 && isUpsolve && !user.contests[contestId].solved.has(problemNo)){
+                    user.contests[contestId].upsolved.add(problemNo);
+                }
+            });
+
+            user.contests[contestId].solved = new Set([ ... user.contests[contestId].solved,  ...user.contests[contestId].upsolved]);
+
         }
-    }
+    })
 }
 
 export const getTabularData = async(seasonId: string) => {
@@ -62,6 +73,8 @@ export const getTabularData = async(seasonId: string) => {
             totalSolved: 0,
             totalWeightedSolves: 0,
             totalWeightedAvailable: 0,
+            contestTimeSolved: 0, 
+            upsolved: 0,
         }
         userInfoMap.set(handle, user);
     });
@@ -73,9 +86,9 @@ export const getTabularData = async(seasonId: string) => {
         }
     }));
     userInfoMap.forEach(user => {
-        Object.entries(user.contests).forEach(([ contestID, solved ]) => {
-            user.totalSolved += solved.size;
-            user.totalWeightedSolves += season.contests[Number(contestID)].weight * solved.size;
+        Object.entries(user.contests).forEach(([ contestID, details ]) => {
+            user.totalSolved += details.solved.size;
+            user.totalWeightedSolves += season.contests[Number(contestID)].weight * details.solved.size;
             user.totalWeightedAvailable += season.contests[Number(contestID)].weight * season.contests[Number(contestID)].totalNumberOfProblems;
 
         });
@@ -84,12 +97,12 @@ export const getTabularData = async(seasonId: string) => {
     const tabularData: ParticipantTabularData[] = [];
     userInfoMap.forEach(user => {
         
-        const { handle, name, dp, contests, totalSolved, totalWeightedSolves, totalWeightedAvailable } = user;
-        const solvesObj: {[id:number]:number} = {};
-        Object.entries(contests).forEach(([ contestId, solves ]) => {
-            solvesObj[Number(contestId)] = solves.size; 
+        const { handle, name, dp, contests, totalSolved, totalWeightedSolves, totalWeightedAvailable, contestTimeSolved, upsolved } = user;
+        const solvesObj: {[id:number]: { solved: number; upsolved: number }} = {};
+        Object.entries(contests).forEach(([ contestId, details ]) => {
+            solvesObj[Number(contestId)] = { solved: details.solved.size, upsolved: details.upsolved.size };
         })
-        tabularData.push({handle, name, dp, contests: solvesObj, totalSolved, totalWeightedSolves, totalWeightedAvailable});
+        tabularData.push({handle, name, dp, contests: solvesObj, totalSolved, totalWeightedSolves, totalWeightedAvailable, contestTimeSolved, upsolved});
     });
     tabularData.sort((a, b) => b.totalWeightedSolves - a.totalWeightedSolves);
     return tabularData.filter(t => !Number.isNaN(t.totalSolved) && seasons[seasonId].participants[t.handle]) 
