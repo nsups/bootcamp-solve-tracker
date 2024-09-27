@@ -12,7 +12,7 @@ export const participants: Participant  = {
   'Gopal': 'Mohan Dev Roy',
   'arabaaarrrrrr': 'Abrar Rahman',
   'Walid_Bin_Reza': 'Walid Bin Reza',
-  'MirMdAsif ': 'Mir Mohammad Asif Abdullah ',
+  'MirMdAsif': 'Mir Mohammad Asif Abdullah ',
   'AzimBiswas': 'Azim Biswas Tazbee',
   'howl_codes': 'Moniruzzaman Mahadi',
   'Dead__man': 'Sumayer Khan Sajid',
@@ -37,12 +37,19 @@ export const participants: Participant  = {
   'Captain_A': 'Ahidul Hasan Dipu',
   'RIDI2322': 'Meherin Ahmmed',
   'talha_muammar': 'Talha Muammar',
+  'flying_neuron': "Sumon Das",
+  'sazim': "Sazim Rahman",
+  'marshMS': "Marshiat Mithe Syed",
+  'Sium02': 'Abdul Wadud SIUM',
+  'sowrov_007': "Md. Shahadat Hossain ", 
 };
 
 const contests: Record<number, Contest> = {
 //   627792: createContest(<contestId>, "Selection", totalProblems, target, weight),
     656719: createContest(656719, "Indi - 1", 6, 6, 1),
     656823: createContest(656823, "Week - 1", 26, 26, 1),
+    658392: createContest(658392, "Indi - 2", 7, 7, 1),
+    658660: createContest(658660, "Week - 2", 26, 26, 1),
 
 }
 
@@ -51,7 +58,7 @@ const s19: Season  = {
   seasonTitle: "NSUPS Bootcamp Season 19",
   participants: participants,
   contests: contests,
-  eligibility: { active: true, target: 70.0 },
+  eligibility: { active: true, target: 80.0 },
   elimination: { active: true, target: 15 },
 }
 

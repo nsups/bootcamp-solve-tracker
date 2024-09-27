@@ -35,7 +35,7 @@ const TableHead = ( ) => {
 
             { 
                 contests.map(([ _, contest ]) => (
-                <th className="w-32 max-w-32 min-w-32" key={contest.id}>
+                <th className="w-32 max-w-28 min-w-28" key={contest.id}>
                     <div 
                         onClick={() => window.open(`https://vjudge.net/contest/${contest.id}`, '_blank')} 
                         className="truncate cursor-pointer hover:underline text-primary ">{contest.title}</div>

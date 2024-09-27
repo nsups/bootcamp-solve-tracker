@@ -7,6 +7,9 @@ const handles = new Map<string, string>();
 
 const generateUserTable =  async (contestId: number) => {
     const response = await fetch(`https://vjudge.net/contest/rank/single/${contestId}`);
+    if(!response.ok){
+        return;
+    }
     const json_response = await response.json();
     const submissions_info = json_response['submissions'];
     const participants_info = json_response['participants'];
@@ -62,7 +65,13 @@ export const getTabularData = async(seasonId: string) => {
         }
         userInfoMap.set(handle, user);
     });
-    await Promise.all(Object.entries(season.contests).map(async( [id, _ ])=>  generateUserTable(Number(id)) ));
+    await Promise.all(Object.entries(season.contests).map(async( [id, _ ])=>  {
+        try {
+            return generateUserTable(Number(id));
+        } catch (error) {
+            
+        }
+    }));
     userInfoMap.forEach(user => {
         Object.entries(user.contests).forEach(([ contestID, solved ]) => {
             user.totalSolved += solved.size;

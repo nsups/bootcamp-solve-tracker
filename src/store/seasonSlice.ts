@@ -20,8 +20,7 @@ export const changeSeason = createAsyncThunk<ParticipantTabularData[], { seasonI
     "season/changeSeason",
     async({ seasonId }, { rejectWithValue }) =>{
         try {
-            const participants = await getTabularData(seasonId) as ParticipantTabularData[];
-            return participants;
+            return await getTabularData(seasonId) as ParticipantTabularData[];
         } catch (error) {
             return rejectWithValue("Something went wrong");
         }
