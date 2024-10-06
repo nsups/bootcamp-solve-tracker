@@ -16,7 +16,7 @@ const generateUserTable =  async (contestId: number) => {
     const participants_info = json_response['participants'];
     for (let i in participants_info) {
         const userId = Number(i);
-        const [ handleLC, name, dp ]  = participants_info[i] as string[];
+        const [ handleLC, _, dp ]  = participants_info[i] as string[];
         const handle = handles.get(handleLC.toLocaleLowerCase());
         if(!handle){
             continue;
