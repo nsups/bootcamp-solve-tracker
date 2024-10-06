@@ -2,7 +2,7 @@
 
 // }
 
-type Submissions =  { [userId: number]: [{ problemNo: number, verdict: number, submissionTime: number; isUpsolve: boolean }] }
+import { Submissions } from "../types/vjudge";
 
 export const parseSubmissions = (json_response: any): Submissions => {
     try {

@@ -50,6 +50,8 @@ const contests: Record<number, Contest> = {
     656823: createContest(656823, "Week - 1", 26, 26, 1),
     658392: createContest(658392, "Indi - 2", 7, 7, 1),
     658660: createContest(658660, "Week - 2", 26, 26, 1),
+    660230: createContest(660230, "Indi - 3", 8, 8, 1),
+    660495: createContest(660495, "Week- 3", 26, 26, 1),
 
 }
 

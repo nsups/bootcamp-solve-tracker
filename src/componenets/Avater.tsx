@@ -27,7 +27,7 @@ const Avater = ({ handle }: { handle: string }) => {
 
     useEffect(() => {
         (async() => {
-            setDp(await getDp() ?? "/avater.png");
+            setDp( await getDp() ?? "https://github.com/nsups/bootcamp-solve-tracker/blob/main/public/avater.png?raw=true");
         })();
     }, [])
     return (

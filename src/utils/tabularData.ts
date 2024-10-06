@@ -2,6 +2,7 @@ import seasons from "../data"
 import { ContestParticipantResponse } from "../types/Participant";
 import  { ParticipantTabularData } from "../types/Participant";
 import { parseSubmissions } from "./parsers";
+
 const userInfoMap = new Map<string, ContestParticipantResponse>();
 const idToHandleMap = new Map<number, string>();
 const handles = new Map<string, string>();
@@ -28,7 +29,7 @@ const generateUserTable =  async (contestId: number) => {
         if(user.userid == 0 || user.dp == ""){
             user.userid = userId;
             user.dp = dp;
-            user.name = name;
+            // user.name = name;
         }
         if(!user.contests[contestId]){
             user.contests[contestId] = { solved: new Set<number>(), upsolved: new Set<number>() };
@@ -37,6 +38,7 @@ const generateUserTable =  async (contestId: number) => {
     }
 
     const submissions = parseSubmissions(json_response);
+    
     Object.entries(submissions).forEach(([ userId, userSubmissions ]) => {
         const handle = idToHandleMap.get(Number(userId)) as string;
         if(handle) {
@@ -56,6 +58,7 @@ const generateUserTable =  async (contestId: number) => {
 
         }
     })
+
 }
 
 export const getTabularData = async(seasonId: string) => {
