@@ -15,6 +15,8 @@ const TableHead = ( ) => {
         totalWeightedProblem += contest.totalNumberOfProblems * contest.weight;
     });
 
+    totalWeightedProblem = Math.round(totalWeightedProblem);
+
     return ( <thead>
         <tr >
             <th className="px-5">Rank</th>
