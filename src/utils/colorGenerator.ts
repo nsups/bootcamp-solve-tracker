@@ -15,7 +15,8 @@ const zeroToFifty = (value: number) => {
 // { r: number, g: number, b: number }
 export const getDarkmodeColor = (percent: number):string => {
     if(percent < 0 || percent > 100){
-        throw new Error("Invalid percent value");
+        // throw new Error("Invalid percent value");
+        percent = 0;
     }
     if(percent >= 50){
         var color   = fiftyToHundred(percent - 50);
@@ -29,7 +30,8 @@ export const getDarkmodeColor = (percent: number):string => {
 
 export const getDarkmodeColorMatte = (percent: number):string => {
     if(percent < 0 || percent > 100){
-        throw new Error("Invalid percent value");
+        // throw new Error("Invalid percent value");
+        percent = 0;
     }
     if(percent >= 50){
         var color   = fiftyToHundred(percent - 50);
