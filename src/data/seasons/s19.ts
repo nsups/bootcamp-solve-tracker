@@ -46,8 +46,8 @@ export const participants: Participant  = {
 
 const contests: Record<number, Contest> = {
 //   627792: createContest(<contestId>, "Selection", totalProblems, target, weight),
-    656719: createContest(656719, "Indi - 1", 6, 6, 1),
-    656823: createContest(656823, "Week - 1", 26, 26, 1),
+    656719: createContest(656719, "Indi - 1", 6, 6, 0.8),
+    656823: createContest(656823, "Week - 1", 26, 26, 0.8),
     658392: createContest(658392, "Indi - 2", 7, 7, 1),
     658660: createContest(658660, "Week - 2", 26, 26, 1),
     660230: createContest(660230, "Indi - 3", 8, 8, 1),
@@ -58,7 +58,8 @@ const contests: Record<number, Contest> = {
     664928: createContest(664928, "Week - 5", 26, 26, 1.3),
     668674: createContest(668674, "Indi - 6", 8, 8, 1),
     668771: createContest(668771, "Week - 6", 26, 26, 1.3),
-
+    672322: createContest(672322, "Indi - 7", 7, 7, 1.1),
+    672806: createContest(672806, "Week - 7", 26, 26, 1.5),
 }
 
 const s19: Season  = {
