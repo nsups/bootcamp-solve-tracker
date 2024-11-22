@@ -57,7 +57,7 @@ const contests: Record<number, Contest> = {
     666577: createContest(666577, "Indi - 5", 7, 7, 1),
     664928: createContest(664928, "Week - 5", 26, 26, 1.3),
     668674: createContest(668674, "Indi - 6", 8, 8, 1),
-    668771: createContest(668771, "Week - 6", 26, 26, 1.3),
+    668771: createContest(668771, "Week - 6", 36, 26, 1.3),
     672322: createContest(672322, "Indi - 7", 7, 7, 1.1),
     672806: createContest(672806, "Week - 7", 26, 26, 1.5),
 }
@@ -67,8 +67,8 @@ const s19: Season  = {
   seasonTitle: "NSUPS Bootcamp Season 19",
   participants: participants,
   contests: contests,
-  eligibility: { active: true, target: 80.0 },
-  elimination: { active: true, target: 15 },
+  eligibility: { active: true, target: 90.0 },
+  elimination: { active: true, target: 50 },
 }
 
 export default s19;
