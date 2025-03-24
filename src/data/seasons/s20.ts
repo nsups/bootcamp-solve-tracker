@@ -32,6 +32,13 @@ const contests: Record<number, Contest> = {
     691698: createContest(691698, "Week - 2", 20, 20, 1),
     693348: createContest(693348, "Indi - 3", 5, 5, 1),
     693725: createContest(693725, "Week- 3", 16, 16, 1),
+    697164: createContest(697164, "Indi - 4", 7, 7, 1),
+    697721: createContest(697721, "Week - 4", 17, 17, 1.2),
+    699136: createContest(699136, "Indi - 5", 7, 7, 1.1),
+    700178: createContest(700178, "Week - 5", 18, 18, 1.2),
+    701216: createContest(701216, "Indi - 6", 7, 7, 1.2),
+    702175: createContest(702175, "Week - 6", 29, 29, 1.2),
+    703377: createContest(703377, "Indi - 7", 7, 7, 1.2),
 }
 
 const s19: Season  = {
