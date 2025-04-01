@@ -21,7 +21,8 @@ export const participants: Participant  = {
     'ayman1122': 'Ahnaf Ayman',
     'cursed_child': 'Md Ataur Rahman Ahad',
     'Hadeon_99': 'Fatin Anzum',
-    'tasin49': 'Muhtadina Serniabat Tasin'
+    'tasin49': 'Muhtadina Serniabat Tasin',
+    'pranto_11': 'Farhin Ahmed Pranto'
 };
 
 const contests: Record<number, Contest> = {
