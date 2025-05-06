@@ -1,28 +1,28 @@
 import { Season, Contest, Participant } from "../../types/Season";
 import { createContest } from "../../utils/createContest";
 
-export const participants: Participant  = {
-    'zidankhan': 'Md Zidan Khan',
-    'Abd_Muhim': 'Abdullah Al Muhim',
-    'Ebnesamit': 'Ebne Samit Chowdhury',
-    'isharaq_200q': 'Ishraq Hossain Rodro',
-    'RArefin20': 'Ratul Arefin',
-    'eusra03': 'Eusra Amreen',
-    'Aariba109': 'Aariba Huq',
-    'shamim88': 'Shamim',
-    'hell37': 'Mir Mutasim Hossain',
-    'arabaaarrrrrr': 'Abrar Rahman',
-    'awwasee': 'Abrar Wahid Wasee',
-    'Tamim2002': 'Rafiqul Islam Tamim',
-    'Rayan_Chowdhury': 'Rayan Chowdhury',
-    'K4Z1M_UnkWn': 'Kazim Hasan',
-    'mariam7575': 'Maryam Islam',
-    'nihal_solver': 'Nafis Alam Nihal',
-    'ayman1122': 'Ahnaf Ayman',
-    'cursed_child': 'Md Ataur Rahman Ahad',
-    'Hadeon_99': 'Fatin Anzum',
-    'tasin49': 'Muhtadina Serniabat Tasin',
-    'pranto_11': 'Farhin Ahmed Pranto'
+export const participants: Participant = {
+    zidankhan: "Md Zidan Khan",
+    Abd_Muhim: "Abdullah Al Muhim",
+    Ebnesamit: "Ebne Samit Chowdhury",
+    isharaq_200q: "Ishraq Hossain Rodro",
+    RArefin20: "Ratul Arefin",
+    eusra03: "Eusra Amreen",
+    Aariba109: "Aariba Huq",
+    shamim88: "Shamim",
+    hell37: "Mir Mutasim Hossain",
+    arabaaarrrrrr: "Abrar Rahman",
+    awwasee: "Abrar Wahid Wasee",
+    Tamim2002: "Rafiqul Islam Tamim",
+    Rayan_Chowdhury: "Rayan Chowdhury",
+    K4Z1M_UnkWn: "Kazim Hasan",
+    mariam7575: "Maryam Islam",
+    nihal_solver: "Nafis Alam Nihal",
+    ayman1122: "Ahnaf Ayman",
+    cursed_child: "Md Ataur Rahman Ahad",
+    Hadeon_99: "Fatin Anzum",
+    tasin49: "Muhtadina Serniabat Tasin",
+    pranto_11: "Farhin Ahmed Pranto",
 };
 
 const contests: Record<number, Contest> = {
@@ -43,15 +43,15 @@ const contests: Record<number, Contest> = {
     705474: createContest(705474, "Week - 7", 18, 18, 1.3),
     708524: createContest(708524, "Indi - 8", 11, 11, 1.2),
     710263: createContest(710263, "Indi - 9", 10, 10, 1.2),
-}
+};
 
-const s19: Season  = {
-  seasonId: "s19",
-  seasonTitle: "NSUPS Bootcamp Season 20",
-  participants: participants,
-  contests: contests,
-  eligibility: { active: true, target: 90.0 },
-  elimination: { active: true, target: 50 },
-}
+const s20: Season = {
+    seasonId: "s20",
+    seasonTitle: "NSUPS Bootcamp Season 20",
+    participants: participants,
+    contests: contests,
+    eligibility: { active: true, target: 90.0 },
+    elimination: { active: true, target: 50 },
+};
 
-export default s19;
+export default s20;
